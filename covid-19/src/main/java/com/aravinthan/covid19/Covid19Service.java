@@ -45,15 +45,21 @@ public class Covid19Service {
 	Map<Date, Integer> reportedDate_mapping= new TreeMap<Date, Integer>(Collections.reverseOrder());
 //	Status based Case Count
 	Map<String, Integer> status_mapping= new TreeMap<String, Integer>();
+
 	
 	String lastRefreshed;
 	String lastOriginUpdate;
 	String lastCaseReportedIn;
 	
+	Integer count=0;
+	public Integer getCount() {
+		return count;
+	}
+	
 	
 	
 //	Getters
-	
+
 	public Covid19UnofficalDetails getSource() {
 		return source;
 	}
@@ -90,9 +96,11 @@ public class Covid19Service {
 //	Spring execute this function when the bean for this service is created
 //  Spring schedule allows to load this function every 50 seconds	
 	@PostConstruct
-	@Scheduled(cron = "*/50 * * * * *")
+	@Scheduled(cron = "0 */1 * * * *")
 	public void getUnoffical() throws Exception {
 		System.out.println("Service being executed");
+		count++;
+		
 //		Api URL
 		final String url = "https://api.rootnet.in/covid19-in/unofficial/covid19india.org";
 
@@ -101,6 +109,7 @@ public class Covid19Service {
 		gender_mapping.clear();
 		reportedDate_mapping.clear();
 		status_mapping.clear();
+		
 		
 		
 //		Hitting the API and getting the respone
@@ -194,7 +203,7 @@ public class Covid19Service {
 		System.out.println("Last origin Update: "+lastOriginUpdate);
 		System.out.println("Last case reported in: "+lastCaseReportedIn);
 		
-		
+		System.out.println("count="+count);
 	    
 	}
 	

@@ -5,13 +5,67 @@
   <head>
     <title>COVID 19 India Tracker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
    
   </head>
 
   <body>
-  	<h1>COVID-19 India tracker Dashboard</h1>
-    <p th:text="${test}"></p>
   
+  
+  <div class="jumbotron">
+  <h1 class="display-4">COVID-19 India Tracker Dashboard</h1>
+  <p class="lead">This application lists the current number of cases reported  across India</p>
+  <p class="text-muted">
+  <span>Last Updated on :</span>
+  <span th:text="${lastRefreshed}"></span>
+  </p>
+  <p th:text="${count}"></p>
+  
+  <hr class="my-4">
+  <div class="container">
+  <p class="h2">
+  <span>Confirmed Cases - </span>
+  <span class="text-primary" th:text="${status_mapping['Total']}"></span>
+  </p>
+  <p class="h2">
+  <span>Hospitalizes Cases - </span>
+  <span class="text-warning" th:text="${status_mapping['Hospitalized']}"></span>
+  </p>
+  <p class="h2">
+  <span>Recovered Cases - </span>
+  <span class="text-success" th:text="${status_mapping['Recovered']}"></span>
+  </p>
+  <p class="h2">
+  <span>Deaths - </span>
+  <span class="text-muted" th:text="${status_mapping['Deceased']}"></span>
+  </p>
+  </div>
+  
+  <hr class="my-4">
+  
+    <div class="container">
+    <p class="h2"><u>Coronavirus Outbreak in India</u></p>
+    <p class="lead">
+    <span>Latest case reported in </span>
+    <span class="bg-warning text-dark"  th:text="|  ${lastCaseReportedIn} |"></span>
+    </p>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">States and UTs</th>
+      <th scope="col">Cases</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+  	 <tr th:each="state : ${state_mapping}">
+        <td th:text="${state.key}"></td>
+        <td th:text="${state.value}"></td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</div>
   </body>
 
 </html>
