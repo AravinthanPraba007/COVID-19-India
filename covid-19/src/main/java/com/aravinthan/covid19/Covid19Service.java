@@ -96,7 +96,7 @@ public class Covid19Service {
 //	Spring execute this function when the bean for this service is created
 //  Spring schedule allows to load this function every 50 seconds	
 	@PostConstruct
-	@Scheduled(cron = "0 */1 * * * *")
+	@Scheduled(cron = "0 */3 * * * *")
 	public void getUnoffical() throws Exception {
 		System.out.println("Service being executed");
 		count++;

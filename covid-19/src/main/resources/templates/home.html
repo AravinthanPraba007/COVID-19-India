@@ -14,40 +14,53 @@
   
   <div class="jumbotron">
   <h1 class="display-4">COVID-19 India Tracker Dashboard</h1>
-  <p class="lead">This application lists the current number of cases reported  across India</p>
+  <p class="lead">To display the current number of cases reported  across India</p>
   <p class="text-muted">
   <span>Last Updated on :</span>
   <span th:text="${lastRefreshed}"></span>
   </p>
-  <p th:text="${count}"></p>
-  
+
   <hr class="my-4">
   <div class="container">
-  <p class="h2">
-  <span>Confirmed Cases - </span>
-  <span class="text-primary" th:text="${status_mapping['Total']}"></span>
-  </p>
-  <p class="h2">
-  <span>Hospitalizes Cases - </span>
-  <span class="text-warning" th:text="${status_mapping['Hospitalized']}"></span>
-  </p>
-  <p class="h2">
-  <span>Recovered Cases - </span>
-  <span class="text-success" th:text="${status_mapping['Recovered']}"></span>
-  </p>
-  <p class="h2">
-  <span>Deaths - </span>
-  <span class="text-muted" th:text="${status_mapping['Deceased']}"></span>
-  </p>
+  
+  <div class="card text-center">
+  <div class="card-header h5">
+    Confirmed Cases
+  </div>
+  <div class="card-body">
+    <p class="card-text text-primary h1" th:text="${status_mapping['Total']}"></p>
+  </div>
+  <div class="card-header h5">
+   Hospitalizes Cases 
+  </div>
+  <div class="card-body">
+    <p class="card-text text-warning h1" th:text="${status_mapping['Hospitalized']}"></p>
+  </div>
+  <div class="card-header h5">
+   Recovered Cases 
+  </div>
+  <div class="card-body">
+    <p class="card-text text-success h1" th:text="${status_mapping['Recovered']}"></p>
+  </div>
+   <div class="card-header h5">
+   Death Count 
+  </div>
+  <div class="card-body">
+    <p class="card-text text-muted h1" th:text="${status_mapping['Deceased']}"></p>
+  </div>
+  
+  
+</div>
+
   </div>
   
   <hr class="my-4">
   
-    <div class="container">
+    <div class="container-fluid">
     <p class="h2"><u>Coronavirus Outbreak in India</u></p>
     <p class="lead">
     <span>Latest case reported in </span>
-    <span class="bg-warning text-dark"  th:text="|  ${lastCaseReportedIn} |"></span>
+    <span class="bg-info text-light h4"  th:text="|  ${lastCaseReportedIn} |"></span>
     </p>
     <table class="table table-striped">
   <thead>
@@ -64,6 +77,11 @@
       </tr>
   </tbody>
 </table>
+  </div>
+  <div class="footer-copyright text-center py-3">© covid19India
+   
+    <p class="text-muted">Created by <a href="https://www.linkedin.com/in/aravinthan-p-91b84715a" target="_blank"> <u>Aravinthan Praba </u></a></p>
+        <a href="https://github.com/AravinthanPraba007/COVID-19-India" target="_blank"> Check out the code !!</a>
   </div>
 </div>
   </body>
