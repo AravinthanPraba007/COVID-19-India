@@ -2,6 +2,8 @@ package com.aravinthan.covid19;
 
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
@@ -50,6 +53,9 @@ public class Covid19Service {
 	String lastRefreshed;
 	String lastOriginUpdate;
 	String lastCaseReportedIn;
+	
+	String updated;
+	
 	
 	Integer count=0;
 	public Integer getCount() {
@@ -198,13 +204,29 @@ public class Covid19Service {
 		lastRefreshed=source.getLastRefreshed();
 		lastOriginUpdate=source.getLastOriginUpdate();
 		lastCaseReportedIn=patientsData[total-1].getState();
+	    
+//		Coverting into IST time
+	    lastRefreshed=changeDateTimeToIST(lastRefreshed);
+	    lastOriginUpdate=changeDateTimeToIST(lastOriginUpdate);
 		
 		System.out.println("Last Refreshed: "+lastRefreshed);
 		System.out.println("Last origin Update: "+lastOriginUpdate);
 		System.out.println("Last case reported in: "+lastCaseReportedIn);
-		
+		System.out.println("updated time: "+updated);
 		System.out.println("count="+count);
 	    
+	}
+	public static String changeDateTimeToIST(String dateTime) throws ParseException {
+		 DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+         utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+         Date utcTime = utcFormat.parse(dateTime);
+         
+
+         DateFormat localFormat = new SimpleDateFormat("EEE, dd MMMM yyyy' at 'hh:mm aa");
+         localFormat.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+         System.out.println("Localtime -----> " + localFormat.format(utcTime));
+         return localFormat.format(utcTime);
+		
 	}
 	
 	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
