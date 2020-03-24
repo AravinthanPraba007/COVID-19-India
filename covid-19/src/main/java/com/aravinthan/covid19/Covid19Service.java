@@ -55,7 +55,8 @@ public class Covid19Service {
 	String lastCaseReportedIn;
 	
 	String updated;
-	
+	Integer todayCount=0;
+	Integer yesterdayCount=0;
 	
 	Integer count=0;
 	public Integer getCount() {
@@ -64,7 +65,22 @@ public class Covid19Service {
 	
 	
 	
+	
 //	Getters
+
+	public Integer getTodayCount() {
+		return todayCount;
+	}
+
+
+
+
+	public Integer getYesterdayCount() {
+		return yesterdayCount;
+	}
+
+
+
 
 	public Covid19UnofficalDetails getSource() {
 		return source;
@@ -116,6 +132,8 @@ public class Covid19Service {
 		reportedDate_mapping.clear();
 		status_mapping.clear();
 		
+		todayCount=0;
+		yesterdayCount=0;
 		
 		
 //		Hitting the API and getting the respone
@@ -200,6 +218,7 @@ public class Covid19Service {
 		System.out.println("==>"+state_mapping);
 		System.out.println("==>"+gender_mapping);
 		System.out.println("==>"+status_mapping);
+		System.out.println("==>"+reportedDate_mapping);
 		
 		lastRefreshed=source.getLastRefreshed();
 		lastOriginUpdate=source.getLastOriginUpdate();
@@ -214,8 +233,37 @@ public class Covid19Service {
 		System.out.println("Last case reported in: "+lastCaseReportedIn);
 		System.out.println("updated time: "+updated);
 		System.out.println("count="+count);
+		
+		
+		
+//		Getting today and yesterday count
+		Date now = new Date();
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        String today = df.format(now);
+        String yesterday=df.format(now.getTime()-24*60*60*1000);
+        System.out.println("-->>"+today);
+        System.out.println("-->>"+yesterday);
+		todayCount=getCountOnGivenDate(today, reportedDate_mapping);
+		yesterdayCount=getCountOnGivenDate(yesterday, reportedDate_mapping);
+		
+		System.out.println("->>today count="+todayCount);
+		System.out.println("->>yesterday count="+yesterdayCount);
+		
 	    
 	}
+	
+	public static Integer getCountOnGivenDate(String date,Map<Date, Integer>dateCounts) throws ParseException {
+		Integer count=0;
+        Date keyDate=new SimpleDateFormat("dd/MM/yyyy").parse(date);
+		count=dateCounts.get(keyDate);
+		if(count!=null)
+		return count;
+		else {
+			return 0;
+		}
+	}
+	
 	public static String changeDateTimeToIST(String dateTime) throws ParseException {
 		 DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
          utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -247,4 +295,5 @@ public class Covid19Service {
 	}
 	
 	
+	 
 }

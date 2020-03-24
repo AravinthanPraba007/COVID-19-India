@@ -20,6 +20,8 @@ public class Covid19Controller {
 		model.addAttribute("lastCaseReportedIn", service.getLastCaseReportedIn());
 		model.addAttribute("lastRefreshed", service.getLastRefreshed());
 		model.addAttribute("count", service.getCount());
+		model.addAttribute("todayCount", service.getTodayCount());
+		model.addAttribute("yesterdayCount", service.getYesterdayCount());
 		return "home";
 	}
 	
