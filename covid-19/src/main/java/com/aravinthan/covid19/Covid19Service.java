@@ -58,6 +58,54 @@ public class Covid19Service {
 	Integer todayCount=0;
 	Integer yesterdayCount=0;
 	
+	Integer current=0;
+	Integer next7=0;
+	Integer next15=0;
+	Integer next30=0;
+	float growthRate=0;
+	
+	
+//	Getters
+	
+	public String getUpdated() {
+		return updated;
+	}
+
+
+
+
+	public Integer getCurrent() {
+		return current;
+	}
+
+
+
+
+	public Integer getNext7() {
+		return next7;
+	}
+
+
+
+
+	public Integer getNext15() {
+		return next15;
+	}
+
+
+
+
+	public Integer getNext30() {
+		return next30;
+	}
+
+
+
+
+	public float getGrowthRate() {
+		return growthRate;
+	}
+
 	Integer count=0;
 	public Integer getCount() {
 		return count;
@@ -66,7 +114,7 @@ public class Covid19Service {
 	
 	
 	
-//	Getters
+
 
 	public Integer getTodayCount() {
 		return todayCount;
@@ -237,11 +285,13 @@ public class Covid19Service {
 		
 		
 //		Getting today and yesterday count
-		Date now = new Date();
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
-        String today = df.format(now);
-        String yesterday=df.format(now.getTime()-24*60*60*1000);
+//		Date now = new Date();
+//		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//        df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+//        String today = df.format(now);
+//        String yesterday=df.format(now.getTime()-24*60*60*1000);
+		String today =getDate(0);
+		String yesterday=getDate(1);
         System.out.println("-->>"+today);
         System.out.println("-->>"+yesterday);
 		todayCount=getCountOnGivenDate(today, reportedDate_mapping);
@@ -250,7 +300,61 @@ public class Covid19Service {
 		System.out.println("->>today count="+todayCount);
 		System.out.println("->>yesterday count="+yesterdayCount);
 		
+		
+//		Calculate the growth factor
+		current=status_mapping.get("Total");
+		Integer currentTrackTotal=current;
+		System.out.println("cuurent is -->"+current);
+		growthRate=0;
+		Integer [] trackingTotal=new Integer[7];
+		for(int i=0;i<7;i++)
+		{
+			String trackingDate=getDate(i);
+			Integer trackingCount=getCountOnGivenDate(trackingDate, reportedDate_mapping);
+			trackingCount=currentTrackTotal-trackingCount;
+			currentTrackTotal=trackingCount;
+			System.out.println("tracking count at "+i+" is :"+currentTrackTotal);
+			trackingTotal[i]=trackingCount;
+		}
+		float totalGrowthRate=0;
+		for(int i=0;i<6;i++)
+		{
+			System.out.println(trackingTotal[i]+"/"+trackingTotal[i+1]);
+			
+			totalGrowthRate+=(float)trackingTotal[i]/trackingTotal[i+1];
+			System.out.println(totalGrowthRate);
+			
+		}
+		
+		growthRate=totalGrowthRate/5;
+		next7=getCountForNextDays(growthRate, 7, current);
+		next15=getCountForNextDays(growthRate, 15, current);
+		next30=getCountForNextDays(growthRate, 30, current);
+		
+		System.out.println("now count is :"+current);
+		System.out.println("next 7 days count is:"+next7);
+		System.out.println("next 15 days count is :"+next15);
+		System.out.println("next 30 days count is:"+next30);
+		
+		
 	    
+	}
+	
+	public static Integer getCountForNextDays(float growthRate,int days,Integer current) {
+		Integer count=0;
+		count=(int) (current*(Math.pow(growthRate, days)));
+		return count;
+	}
+	
+	public static String getDate(int howDaysBack){
+		String date;
+		Date now = new Date();
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        date=df.format(now.getTime()-((24*60*60*1000)*howDaysBack));
+        System.out.println("-->>"+date);
+		return date;
+		
 	}
 	
 	public static Integer getCountOnGivenDate(String date,Map<Date, Integer>dateCounts) throws ParseException {
