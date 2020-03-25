@@ -3,6 +3,7 @@ package com.aravinthan.covid19;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -327,10 +328,13 @@ public class Covid19Service {
 		}
 		
 		growthRate=totalGrowthRate/5;
-		next7=getCountForNextDays(growthRate, 7, current);
-		next15=getCountForNextDays(growthRate, 15, current);
-		next30=getCountForNextDays(growthRate, 30, current);
+		DecimalFormat decimalFormat = new DecimalFormat("#.##");
+		growthRate= Float.valueOf(decimalFormat.format(growthRate));
+		next7=getCountForNextDays(growthRate, 7, trackingTotal[0]);
+		next15=getCountForNextDays(growthRate, 15, trackingTotal[0]);
+		next30=getCountForNextDays(growthRate, 30, trackingTotal[0]);
 		
+		System.out.println("growth rate :"+growthRate);
 		System.out.println("now count is :"+current);
 		System.out.println("next 7 days count is:"+next7);
 		System.out.println("next 15 days count is :"+next15);
@@ -342,7 +346,11 @@ public class Covid19Service {
 	
 	public static Integer getCountForNextDays(float growthRate,int days,Integer current) {
 		Integer count=0;
-		count=(int) (current*(Math.pow(growthRate, days)));
+		float e=(float) Math.pow(growthRate, days);
+		DecimalFormat decimalFormat = new DecimalFormat("#.##");
+		e=Float.valueOf(decimalFormat.format(e));
+		System.out.println("e vaue="+e);
+		count=(int) (current*e);
 		return count;
 	}
 	
