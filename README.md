@@ -29,7 +29,7 @@ Clone the **Spring Boot COVID-19 INDIA Tracker** project to your IDE
 Git Clone: [https://github.com/AravinthanPraba007/COVID-19-India.git](https://github.com/AravinthanPraba007/COVID-19-India.git)  
 
 ## Step 2 - Start the Spring Boot Server Project
-Start the **Covid-19** project
+Start the **Covid-19-India** project
 
 
 ## Step 3 - Launch the home page
@@ -37,13 +37,13 @@ Start the **Covid-19** project
 http://localhost:8080
 ```
 ## Home Page 
-![covid home page 1](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(64).png)
+![covid home page 1](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(68).png)
 
 ## Categorizing Cases Count 
-![covid section 1](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(65).png)
+![covid section 1](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(69).png)
 
 ## State wise Cases Count Detail 
-![covid section 2](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(66).png)
+![covid section 2](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(70).png)
 
 ## Growth Factor Detail
-![covid section 3](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(67).png)
+![covid section 3](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(71).png)
