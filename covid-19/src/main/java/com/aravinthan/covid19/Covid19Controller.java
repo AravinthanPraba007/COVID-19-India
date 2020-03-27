@@ -30,6 +30,8 @@ public class Covid19Controller {
 		model.addAttribute("next7", myFormat.format(service.getNext7()));
 		model.addAttribute("next15", myFormat.format(service.getNext15()));
 		model.addAttribute("next30", myFormat.format(service.getNext30()));
+		model.addAttribute("collapsedError", service.isCollapsedError());
+		model.addAttribute("collapsedErrorMsg", service.getCollapsedErrorMsg() );
 		return "home";
 	}
 	

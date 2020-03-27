@@ -65,11 +65,30 @@ public class Covid19Service {
 	Integer next30=0;
 	float growthRate=0;
 	
+//	If api respone collapsed 
+	boolean collapsedError=false;
+	String collapsedErrorMsg;
 	
 //	Getters
 	
+	
+	
 	public String getUpdated() {
 		return updated;
+	}
+
+
+
+
+	public boolean isCollapsedError() {
+		return collapsedError;
+	}
+
+
+
+
+	public String getCollapsedErrorMsg() {
+		return collapsedErrorMsg;
 	}
 
 
@@ -216,6 +235,32 @@ public class Covid19Service {
 		Integer total=Integer.parseInt(source.getData().getSummary().getTotal());
 		status_mapping.put("Total",total);
 		
+//		Upated time details
+		lastRefreshed=source.getLastRefreshed();
+		lastOriginUpdate=source.getLastOriginUpdate();
+		lastCaseReportedIn=patientsData[total-1].getState();
+	    
+//		Coverting into IST time
+	    lastRefreshed=changeDateTimeToIST(lastRefreshed);
+	    lastOriginUpdate=changeDateTimeToIST(lastOriginUpdate);
+		
+		System.out.println("Last Refreshed: "+lastRefreshed);
+		System.out.println("Last origin Update: "+lastOriginUpdate);
+		System.out.println("Last case reported in: "+lastCaseReportedIn);
+		System.out.println("updated time: "+updated);
+		System.out.println("count="+count);
+		
+//		Suddenly if the api respone is collapsed the throw a error no data is found 
+		
+		System.out.println("Checking total="+total+"patient data length ="+patientsData.length);
+		if(total==0 || patientsData.length==0)
+		{
+			collapsedError=true;
+			collapsedErrorMsg="We are facing some technical issues. Please come back later !!!";
+			return ;
+		}
+			
+		
 //		Iterating the data and taking the case count on different bases
 		for(Covid19UnofficalRawPatientData patientData:patientsData){
 			
@@ -269,20 +314,7 @@ public class Covid19Service {
 		System.out.println("==>"+status_mapping);
 		System.out.println("==>"+reportedDate_mapping);
 		
-		lastRefreshed=source.getLastRefreshed();
-		lastOriginUpdate=source.getLastOriginUpdate();
-		lastCaseReportedIn=patientsData[total-1].getState();
-	    
-//		Coverting into IST time
-	    lastRefreshed=changeDateTimeToIST(lastRefreshed);
-	    lastOriginUpdate=changeDateTimeToIST(lastOriginUpdate);
-		
-		System.out.println("Last Refreshed: "+lastRefreshed);
-		System.out.println("Last origin Update: "+lastOriginUpdate);
-		System.out.println("Last case reported in: "+lastCaseReportedIn);
-		System.out.println("updated time: "+updated);
-		System.out.println("count="+count);
-		
+
 		
 		
 //		Getting today and yesterday count

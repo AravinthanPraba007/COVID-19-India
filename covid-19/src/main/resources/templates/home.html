@@ -51,6 +51,24 @@
   </p>
 
 
+<div class="container-fluid mt-5  text-centered" th:if="${collapsedError}"> 
+<hr class=4>
+<div class="card text-center">
+  <div class="card-header">
+    OOPS !!
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p th:text='${collapsedErrorMsg}'></p>
+      <footer class="blockquote-footer">Sorry for the inconvenience </footer>
+    </blockquote>
+  </div>
+</div>
+  
+</div>
+
+
+<div  th:if="!${collapsedError}"> 
 <div class="card">
 					<div class="card-header" id="headingOne">
 						<h2 class="mb-0">
@@ -188,6 +206,9 @@
         <a href="https://github.com/AravinthanPraba007/COVID-19-India" target="_blank"> Check out the code !!</a>
   </div>
 </div>
+
+</div>
+
 </div> 
   </body>
 
