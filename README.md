@@ -39,7 +39,7 @@ http://localhost:8080
 ## Home Page 
 ![covid home page 1](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(64).png)
 
-## Categorizing Cases Count based On Status
+## Categorizing Cases Count 
 ![covid section 1](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(65).png)
 
 ## State wise Cases Count Detail 
