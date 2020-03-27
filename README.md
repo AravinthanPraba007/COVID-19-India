@@ -3,7 +3,7 @@
 A Spring Boot application to track the current number and growth of Coronavirus disease across India (COVID-19).
 * This project developed using the Spring boot, Thymeleaf. 
 * This app used to fetch the live data of Coronavirus from api-covid-19-india.
- This web application displays the details of total confirmed cases, total death cases, and recovered cases around the India and display the case count state wise. 
+* This web application displays the details of total confirmed cases, total death cases, and recovered cases around the India and display the case count state wise. 
 * This application uses Exponential Calculus to find the growth factor of the virus to predict the cases to be recorded in the following days.
 
 ## Technology Stack
