@@ -239,6 +239,18 @@ public class Covid19Service {
 		lastRefreshed=source.getLastRefreshed();
 		lastOriginUpdate=source.getLastOriginUpdate();
 		lastCaseReportedIn=patientsData[total-1].getState();
+//		LastCaseReported state is null 
+		if(lastCaseReportedIn==null)
+		{
+			System.out.println("last case state is null");
+			int totalIndx=total-1;
+			while(lastCaseReportedIn==null)
+			{
+				
+				lastCaseReportedIn=patientsData[totalIndx--].getState();
+				System.out.println("in while last reported state at --index="+totalIndx+"--> "+lastCaseReportedIn);
+			}
+		}
 	    
 //		Coverting into IST time
 	    lastRefreshed=changeDateTimeToIST(lastRefreshed);
@@ -265,8 +277,11 @@ public class Covid19Service {
 		for(Covid19UnofficalRawPatientData patientData:patientsData){
 			
 //			Mapping the cases based on state
-//			System.out.println(patientData.getState());
+			System.out.println(patientData.getState());
 			String state=patientData.getState();
+//			To handle the null entry
+			if (state==null)
+				state="Unknown";
 			boolean isStatePresent = state_mapping.containsKey(state);
 			if(!isStatePresent)
 			state_mapping.put(state,1);
@@ -274,8 +289,11 @@ public class Covid19Service {
 			state_mapping.replace(state, state_mapping.get(state)+1);
 			
 //			Mapping the cases based on gender
-//			System.out.println(patientData.getGender());
+		System.out.println(patientData.getGender());
 			String gender=patientData.getGender();
+//			To handle the null entry
+			if (gender==null)
+				gender="Unknown";
 			boolean isGenderPresent = gender_mapping.containsKey(gender);
 			if(!isGenderPresent)
 			gender_mapping.put(gender,1);
@@ -283,7 +301,7 @@ public class Covid19Service {
 			gender_mapping.replace(gender, gender_mapping.get(gender)+1);
 			
 //			Mapping the cases based on reported date
-//			System.out.println(patientData.getReportedOn());
+			System.out.println(patientData.getReportedOn());
 			String date=patientData.getReportedOn();
 			Date reportedDate=new SimpleDateFormat("dd/MM/yyyy").parse(date);
 			boolean isReportedDatePresent = reportedDate_mapping.containsKey(reportedDate);
@@ -293,13 +311,17 @@ public class Covid19Service {
 				reportedDate_mapping.replace(reportedDate, reportedDate_mapping.get(reportedDate)+1);
 			
 //			Mapping the cases based on status
-//			System.out.println(patientData.getStatus());
+			System.out.println(patientData.getStatus());
 			String status=patientData.getStatus();
+//			To handle the null entry
+			if (status==null)
+				status="Unknown";
 			boolean isStatusPresent = status_mapping.containsKey(status);
 			if(!isStatusPresent)
 				status_mapping.put(status,1);
 			else
 				status_mapping.replace(status, status_mapping.get(status)+1);
+			System.out.println("---------------------");
 			
 		}
 		
