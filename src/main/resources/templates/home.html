@@ -11,6 +11,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <script>
+ 
+ 
 	$(document).ready(
 			function() {
 				// Add minus icon for collapse element which is open by default
@@ -36,6 +38,9 @@
 						});
 
 			});
+	
+
+	
 </script>
  
   </head>
@@ -115,6 +120,64 @@
 					</div>
 				</div>
 
+  <hr class="my-4">
+  
+  <div class="card">
+					<div class="card-header">
+						<h5 class="mt-1">
+							<button type="button" class="btn btn-primary" onclick="getLocation()">Click here</button> 
+							<span>for distance from nearest COVID19 confirmed case in India</span>
+						</h5>
+					</div>
+					<div id="location-message" class="card-text h5 mx-4 my-3">
+					<p class="text-muted">Your current location will be used to get this data</p>
+					</div>
+				
+				</div>
+				
+<script type="text/javascript">
+var locMsg= document.getElementById("location-message");
+var latitude = 0;
+var longitude = 0;
+var check = "https://script.google.com/macros/s/AKfycbwqcrVhD9D6Oi2aIi9EG16ks3hLjbJqag_jznwxqpY88xdoBQun/exec?";
+function getLocation() {
+	locMsg.innerHTML= "<p >Loading and processing your data.....</p>";
+	document.getElementById('location-message').style.color = 'gray';
+	
+	  if (navigator.geolocation) {
+		    navigator.geolocation.getCurrentPosition(showDistance);
+		  } else { 
+		    y.innerHTML = "Geolocation is not supported by this browser.";
+		  }
+	}
+	
+function showDistance(position) {
+	 latitude = position.coords.latitude;
+	 longitude = position.coords.longitude;
+	  url = check + "lat=" + position.coords.latitude + "&" + "long=" + position.coords.longitude;
+
+		 fetch(url)
+	                .then(response => {
+	                    return response.text();
+	                })
+	           .then(data => {
+	                    console.log(data)
+	                   locMsg.innerHTML ="<p>You're " + parseFloat(data).toFixed(2) + " KM away from nearest confirmed case</p>";
+	                    if (parseFloat(data).toFixed(2) < 100) {
+	                        document.getElementById('location-message').style.color = 'red';
+	                    }
+	                    else {
+	                        document.getElementById('location-message').style.color = '#25D366';
+
+	                    }
+
+
+	                })           
+	
+	  
+	}
+</script>				
+  
   <hr class="my-4">
   
     	<div class="container text-center mb-5">
