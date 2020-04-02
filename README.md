@@ -5,6 +5,9 @@ A Spring Boot application to track the current number and growth of Coronavirus 
 * This app used to fetch the live data of Coronavirus from api-covid-19-india.
 * This web application displays the details of total confirmed cases, total death cases, and recovered cases around the India and display the case count state wise. 
 * This application uses Exponential Calculus to find the growth factor of the virus to predict the cases to be recorded in the following days.
+* #### New Features :
+  * This application will gets your location and show the nearest confirmed case distance. Example: "You're 5.06 KM away from nearest confirmed case"
+  
 
 ## Technology Stack
 - Java 8
@@ -47,3 +50,6 @@ http://localhost:8080
 
 ## Growth Factor Detail
 ![covid section 3](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(71).png)
+
+## Nearest Confirmed Case Distance
+![covid section 3](https://github.com/AravinthanPraba007/COVID-19-India/blob/master/screenshots/Screenshot%20(72).png)
