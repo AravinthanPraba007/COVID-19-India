@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class Covid19Controller {
-	
+
 	@Autowired
 	Covid19Service service;
-	
+
 	@GetMapping("/")
 	public String homePage(Model model) {
 		NumberFormat myFormat = NumberFormat.getInstance();
 		model.addAttribute("test", "testing datas");
-		model.addAttribute("gender_mapping",service.getGender_mapping());
-		model.addAttribute("state_mapping",service.getState_mapping());
-		model.addAttribute("status_mapping",service.getStatus_mapping());
+		model.addAttribute("gender_mapping", service.getGender_mapping());
+		model.addAttribute("state_mapping", service.getState_mapping());
+		model.addAttribute("status_mapping", service.getStatus_mapping());
 		model.addAttribute("lastCaseReportedIn", service.getLastCaseReportedIn());
 		model.addAttribute("lastRefreshed", service.getLastRefreshed());
 		model.addAttribute("count", service.getCount());
@@ -31,8 +31,8 @@ public class Covid19Controller {
 		model.addAttribute("next15", myFormat.format(service.getNext15()));
 		model.addAttribute("next30", myFormat.format(service.getNext30()));
 		model.addAttribute("collapsedError", service.isCollapsedError());
-		model.addAttribute("collapsedErrorMsg", service.getCollapsedErrorMsg() );
+		model.addAttribute("collapsedErrorMsg", service.getCollapsedErrorMsg());
 		return "home";
 	}
-	
+
 }
