@@ -174,13 +174,13 @@ public class Covid19Service {
 		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
 		// Storing the response in a string and doing object mapping
-		System.out.println(response.getBody());
+//		System.out.println(response.getBody());
 		String json = response.getBody();
 		ObjectMapper objectMapper = new ObjectMapper();
 		source = null;
 		try {
 			source = objectMapper.readValue(json, Covid19UnofficalDetails.class);
-			System.out.println("==" + source);
+//			System.out.println("==" + source);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -236,7 +236,7 @@ public class Covid19Service {
 		for (Covid19UnofficalRawPatientData patientData : patientsData) {
 
 			// Mapping the cases based on state
-			System.out.println(patientData.getState());
+//			System.out.println(patientData.getState());
 			String state = patientData.getState();
 			// To handle the null entry
 			if (state == null)
@@ -248,7 +248,7 @@ public class Covid19Service {
 				state_mapping.replace(state, state_mapping.get(state) + 1);
 
 			// Mapping the cases based on gender
-			System.out.println(patientData.getGender());
+//			System.out.println(patientData.getGender());
 			String gender = patientData.getGender();
 			// To handle the null entry
 			if (gender == null)
@@ -260,7 +260,7 @@ public class Covid19Service {
 				gender_mapping.replace(gender, gender_mapping.get(gender) + 1);
 
 			// Mapping the cases based on reported date
-			System.out.println(patientData.getReportedOn());
+//			System.out.println(patientData.getReportedOn());
 			String date = patientData.getReportedOn();
 			Date reportedDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
 			boolean isReportedDatePresent = reportedDate_mapping.containsKey(reportedDate);
@@ -270,7 +270,7 @@ public class Covid19Service {
 				reportedDate_mapping.replace(reportedDate, reportedDate_mapping.get(reportedDate) + 1);
 
 			// Mapping the cases based on status
-			System.out.println(patientData.getStatus());
+//			System.out.println(patientData.getStatus());
 			String status = patientData.getStatus();
 			// To handle the null entry
 			if (status == null)
@@ -280,7 +280,7 @@ public class Covid19Service {
 				status_mapping.put(status, 1);
 			else
 				status_mapping.replace(status, status_mapping.get(status) + 1);
-			System.out.println("---------------------");
+//			System.out.println("---------------------");
 
 		}
 
@@ -289,10 +289,10 @@ public class Covid19Service {
 		gender_mapping = (HashMap<String, Integer>) sortByValue(gender_mapping);
 		status_mapping = sortByValue(status_mapping);
 
-		System.out.println("==>" + state_mapping);
-		System.out.println("==>" + gender_mapping);
-		System.out.println("==>" + status_mapping);
-		System.out.println("==>" + reportedDate_mapping);
+//		System.out.println("==>" + state_mapping);
+//		System.out.println("==>" + gender_mapping);
+//		System.out.println("==>" + status_mapping);
+//		System.out.println("==>" + reportedDate_mapping);
 
 		// Getting today and yesterday count
 		// Date now = new Date();
@@ -326,7 +326,7 @@ public class Covid19Service {
 		}
 		float totalGrowthRate = 0;
 		for (int i = 0; i < 6; i++) {
-			System.out.println(trackingTotal[i] + "/" + trackingTotal[i + 1]);
+//			System.out.println(trackingTotal[i] + "/" + trackingTotal[i + 1]);
 
 			totalGrowthRate += (float) trackingTotal[i] / trackingTotal[i + 1];
 			System.out.println(totalGrowthRate);
