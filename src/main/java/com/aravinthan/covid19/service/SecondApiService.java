@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,6 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class SecondApiService {
+	
+	@Autowired
+	DateTimeHelperService dateTimeHelper;
 
 	SecondApiData secondApiSource;
 	CasesTimeSeriesData yesterdayReport;
@@ -30,8 +32,14 @@ public class SecondApiService {
 	List<StateWiseData> stateWiseReport =new ArrayList<StateWiseData>();
 	StateWiseData todayStatus;
 	CasesTimeSeriesData todayReport;
+	String lastRefreshed;
 	
-	
+
+	public String getLastRefreshed() {
+		return lastRefreshed;
+	}
+
+
 
 	public SecondApiData getSecondApiSource() {
 		return secondApiSource;
@@ -69,9 +77,9 @@ public class SecondApiService {
 
 
 
-	@PostConstruct
+//	@PostConstruct
 	public void getSecondApiData() {
-		System.out.println("Function for second api called--------->");
+		System.out.println("Second api function is called--------->");
 		final String secondApiUrl = "https://api.covid19india.org/data.json";
 		// Hitting the API and getting the respone
 		HttpHeaders headers = new HttpHeaders();
@@ -120,7 +128,8 @@ public class SecondApiService {
 		todayReportCopy.setTotalrecovered(todayStatus.getRecovered());
 		todayReport=todayReportCopy;
 		System.out.println("today report ==>"+todayReport);
-		
+//		Last refreshed dateTime
+		lastRefreshed=DateTimeHelperService.changeDateFormatToReadableString(todayStatus.getLastupdatedtime());
 		
 
 	}
