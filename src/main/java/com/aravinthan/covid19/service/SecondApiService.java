@@ -111,6 +111,7 @@ public class SecondApiService {
 		lastTestedReport=secondApiSource.getTested()[lengthOfTested-1];
 		System.out.println("last tested report ==>"+lastTestedReport);
 //		Getting statewise report by removing the intial index of statewise date which is today's status
+		stateWiseReport.clear();
 		for(int i=1;i<secondApiSource.getStatewise().length-1;i++){
 			stateWiseReport.add(secondApiSource.getStatewise()[i]);
 		}
