@@ -130,7 +130,7 @@ public class SecondApiService {
 		System.out.println("today report ==>"+todayReport);
 //		Last refreshed dateTime
 		lastRefreshed=DateTimeHelperService.changeDateFormatToReadableString(todayStatus.getLastupdatedtime());
-		
+		System.out.println("LastRefreshed --> "+lastRefreshed);
 
 	}
 
