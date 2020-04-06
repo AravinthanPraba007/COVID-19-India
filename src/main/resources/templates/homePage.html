@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>COVID 19 India Tracker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+	integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+	integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+
+	<div class="jumbotron">
+		<h1 class="display-4">COVID-19 India Tracker Dashboard</h1>
+		<p class="lead">To display the current number of cases reported
+			across India</p>
+		<p class="text-muted">
+			<span>Last Updated on :</span> <span th:text="${lastRefreshed}"></span>
+		</p>
+
+
+		<div class="container-fluid mt-5  text-centered"
+			th:if="${collapsedError}">
+			<hr class=4>
+			<div class="card text-center">
+				<div class="card-header">OOPS !!</div>
+				<div class="card-body">
+					<blockquote class="blockquote mb-0">
+						<p th:text='${collapsedErrorMsg}'></p>
+						<footer class="blockquote-footer">Sorry for the
+							inconvenience </footer>
+					</blockquote>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div th:if="!${collapsedError}">
+		
+
+			<hr class="my-4">
+
+			<div class="card">
+				<div class="card-header">
+					<h5 class="mt-1">
+						<button type="button" class="btn btn-primary"
+							onclick="getLocation()">Click here</button>
+						<span>for distance from nearest COVID19 confirmed case in
+							India</span>
+					</h5>
+				</div>
+				<div id="location-message" class="card-text h5 mx-4 my-3">
+					<p class="text-muted">Your current location will be used to get
+						this data</p>
+				</div>
+
+			</div>
+
+			<script type="text/javascript">
+var locMsg= document.getElementById("location-message");
+var latitude = 0;
+var longitude = 0;
+var check = "https://script.google.com/macros/s/AKfycbwqcrVhD9D6Oi2aIi9EG16ks3hLjbJqag_jznwxqpY88xdoBQun/exec?";
+function getLocation() {
+	locMsg.innerHTML= "<p >Loading your data.....</p>";
+	document.getElementById('location-message').style.color = 'gray';
+
+	
+	  if (navigator.geolocation) {
+		  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+		   
+		  } else { 
+			  locMsg.innerHTML = "Geolocation is not supported by this browser.";
+		  }
+	}
+	
+	
+// Define callback function for successful attempt
+function successCallback(position) {
+	locMsg.innerHTML= "<p >Calculating the distance.....</p>";
+	document.getElementById('location-message').style.color = 'gray';
+    navigator.geolocation.getCurrentPosition(showDistance);	
+
+}
+
+// Define callback function for failed attempt
+function errorCallback(error) {
+    if(error.code == 1) {
+    	locMsg.innerHTML = "<p>You've decided not to share your position. So we cant process your location. Please give your location access.</p>";
+    	document.getElementById('location-message').style.color = 'gray';
+    } else if(error.code == 2) {
+    	locMsg.innerHTML = "<p>The network is down or the positioning service can't be reached.</p>";
+    	document.getElementById('location-message').style.color = 'gray';
+    } else if(error.code == 3) {
+    	locMsg.innerHTML = "<p>The attempt timed out before it could get the location data.</p>";
+    	document.getElementById('location-message').style.color = 'gray';
+    } else {
+    	locMsg.innerHTML = "<p>Geolocation failed due to unknown error.</p>";
+    	document.getElementById('location-message').style.color = 'gray';
+    }
+}
+	
+function showDistance(position) {
+	 latitude = position.coords.latitude;
+	 longitude = position.coords.longitude;
+	  url = check + "lat=" + position.coords.latitude + "&" + "long=" + position.coords.longitude;
+	  
+		 fetch(url)
+	                .then(response => {
+	                    return response.text();
+	                })
+	           .then(data => {
+	                    console.log(data)
+	                   locMsg.innerHTML ="<p>You're " + parseFloat(data).toFixed(2) + " KM away from nearest confirmed case</p>";
+	                    if (parseFloat(data).toFixed(2) < 100) {
+	                        document.getElementById('location-message').style.color = 'red';
+	                    }
+	                    else {
+	                        document.getElementById('location-message').style.color = '#25D366';
+
+	                    }
+
+
+	                })    
+	                
+	
+	  
+	}
+</script>
+
+			<hr class="my-4">
+
+			<div class="container text-center mb-5">
+				<div class="row">
+					<div class="col">
+						<div class="card-header h5">Today</div>
+						<div class="card-body">
+							<p class="card-text text-danger h1" th:text="${todayReport.dailyconfirmed}"></p>
+						</div>
+						<footer class="text-muted footer">New cases reported</footer>
+					</div>
+					<div class="col">
+						<div class="card-header h5">Yesterday</div>
+						<div class="card-body">
+							<p class="card-text h1 text-dark" th:text="${yesterdayReport.dailyconfirmed}"></p>
+						</div>
+						<footer class="text-muted footer">New cases reported</footer>
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<div class="container">
+
+				<div class="card text-center">
+					<div class="card-header h5">Confirmed Cases</div>
+					<div class="card-body">
+						<p class="card-text text-primary h1"
+							th:text="${todayStatus.confirmed}"></p>
+					</div>
+					<div class="card-header h5">Hospitalizes Cases</div>
+					<div class="card-body">
+						<p class="card-text text-warning h1"
+							th:text="${todayStatus.active}"></p>
+					</div>
+					<div class="card-header h5">Recovered Cases</div>
+					<div class="card-body">
+						<p class="card-text text-success h1"
+							th:text="${todayStatus.recovered}"></p>
+					</div>
+					<div class="card-header h5">Death Count</div>
+					<div class="card-body">
+						<p class="card-text text-muted h1"
+							th:text="${todayStatus.deaths}"></p>
+					</div>
+
+				</div>
+
+
+
+
+				<hr class="my-4">
+
+				<div class="container-fluid">
+					<p class="h2">
+						<u>Coronavirus Outbreak in India</u>
+					</p>
+					
+					<table class="table table-bordered table-striped mt-4">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">States and UTs</th>
+								<th scope="col">Confirmed</th>
+								<th scope="col">Active</th>
+								<th scope="col">Recovered</th>
+								<th scope="col">Deceased</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="state : ${stateWiseReport}">
+								<td  th:text="${state.state}"></td>
+								<td class="text-right" th:text="${state.confirmed}"></td>
+								<td class="text-right" th:text="${state.active}"></td>
+								<td class="text-right" th:text="${state.recovered}"></td>
+								<td class="text-right" th:text="${state.deaths}"></td>
+							</tr>
+						</tbody>
+					</table>
+				
+				
+				</div>
+				<div class="footer-copyright text-center py-3">
+					© covid19India
+
+					<p class="text-muted">
+						Created by <a
+							href="https://www.linkedin.com/in/aravinthan-p-91b84715a"
+							target="_blank"> <u>Aravinthan Praba </u></a>
+					</p>
+					<a href="https://github.com/AravinthanPraba007/COVID-19-India"
+						target="_blank"> Check out the code !!</a>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</body>
+
+</html>
