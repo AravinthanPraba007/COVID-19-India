@@ -10,38 +10,36 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SecondApiData {
 
-	CasesTimeSeriesData casesTimeSeriesData[];
-	StateWiseData stateWiseData[];
-	TestedData testedData[];
-	public CasesTimeSeriesData[] getCasesTimeSeriesData() {
-		return casesTimeSeriesData;
+	CasesTimeSeriesData cases_time_series[];
+	StateWiseData statewise[];
+	TestedData tested[];
+	public CasesTimeSeriesData[] getCases_time_series() {
+		return cases_time_series;
 	}
-	public void setCasesTimeSeriesData(CasesTimeSeriesData[] casesTimeSeriesData) {
-		this.casesTimeSeriesData = casesTimeSeriesData;
+	public void setCases_time_series(CasesTimeSeriesData[] casesTimeSeriesData) {
+		this.cases_time_series = casesTimeSeriesData;
 	}
-	public StateWiseData[] getStateWiseData() {
-		return stateWiseData;
+	public StateWiseData[] getStatewise() {
+		return statewise;
 	}
-	public void setStateWiseData(StateWiseData[] stateWiseData) {
-		this.stateWiseData = stateWiseData;
+	public void setStatewise(StateWiseData[] stateWiseData) {
+		this.statewise = stateWiseData;
 	}
-	public TestedData[] getTestedData() {
-		return testedData;
+	public TestedData[] getTested() {
+		return tested;
 	}
-	public void setTestedData(TestedData[] testedData) {
-		this.testedData = testedData;
+	public void setTested(TestedData[] testedData) {
+		this.tested = testedData;
 	}
-	public SecondApiData(CasesTimeSeriesData[] casesTimeSeriesData, StateWiseData[] stateWiseData,
-			TestedData[] testedData) {
+	
+	public SecondApiData() {
 		super();
-		this.casesTimeSeriesData = casesTimeSeriesData;
-		this.stateWiseData = stateWiseData;
-		this.testedData = testedData;
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
-		return "SecondApiData [casesTimeSeriesData=" + Arrays.toString(casesTimeSeriesData) + ", stateWiseData="
-				+ Arrays.toString(stateWiseData) + ", testedData=" + Arrays.toString(testedData) + "]";
+		return "SecondApiData [casesTimeSeriesData=" + Arrays.toString(cases_time_series) + ", stateWiseData="
+				+ Arrays.toString(statewise) + ", testedData=" + Arrays.toString(tested) + "]";
 	}
 	
 	

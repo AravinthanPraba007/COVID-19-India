@@ -1,7 +1,5 @@
 package com.aravinthan.covid19.secondApiModel;
 
-import java.util.Date;
-
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,7 +10,7 @@ public class TestedData {
 	
 	Integer totalpositivecases;
 	Integer totalsamplestested;
-	Date updatetimestamp;
+	String updatetimestamp;
 	public Integer getTotalpositivecases() {
 		return totalpositivecases;
 	}
@@ -25,10 +23,10 @@ public class TestedData {
 	public void setTotalsamplestested(Integer totalsamplestested) {
 		this.totalsamplestested = totalsamplestested;
 	}
-	public Date getUpdatetimestamp() {
+	public String getUpdatetimestamp() {
 		return updatetimestamp;
 	}
-	public void setUpdatetimestamp(Date updatetimestamp) {
+	public void setUpdatetimestamp(String updatetimestamp) {
 		this.updatetimestamp = updatetimestamp;
 	}
 	public TestedData() {

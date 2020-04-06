@@ -1,7 +1,5 @@
 package com.aravinthan.covid19.secondApiModel;
 
-import java.util.Date;
-
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,7 +14,7 @@ public class StateWiseData {
 	Integer deltaconfirmed;
 	Integer deltadeaths;
 	Integer deltarecovered;
-	Date lastupdatedtime;
+	String lastupdatedtime;
 	Integer recovered;
 	String state;
 	String statecode;
@@ -56,10 +54,10 @@ public class StateWiseData {
 	public void setDeltarecovered(Integer deltarecovered) {
 		this.deltarecovered = deltarecovered;
 	}
-	public Date getLastupdatedtime() {
+	public String getLastupdatedtime() {
 		return lastupdatedtime;
 	}
-	public void setLastupdatedtime(Date lastupdatedtime) {
+	public void setLastupdatedtime(String lastupdatedtime) {
 		this.lastupdatedtime = lastupdatedtime;
 	}
 	public Integer getRecovered() {
