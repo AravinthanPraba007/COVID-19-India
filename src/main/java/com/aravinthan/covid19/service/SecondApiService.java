@@ -104,7 +104,7 @@ public class SecondApiService {
 		}
 //		Getting yesterday Report from last index of cases_time_series data
 		int lengthOfCasesTimeSeries=secondApiSource.getCases_time_series().length;
-		yesterdayReport=secondApiSource.getCases_time_series()[lengthOfCasesTimeSeries-1];
+		yesterdayReport=secondApiSource.getCases_time_series()[lengthOfCasesTimeSeries-2];
 		System.out.println("yesterday Report ==>"+yesterdayReport);
 //		Getting yesterday tested repot from the last index of tested data"
 		int lengthOfTested=secondApiSource.getTested().length;
