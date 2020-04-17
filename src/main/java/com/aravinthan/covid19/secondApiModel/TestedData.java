@@ -8,19 +8,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestedData {
 	
-	Integer totalpositivecases;
-	Integer totalsamplestested;
+	String totalpositivecases;
+	String totalsamplestested;
 	String updatetimestamp;
-	public Integer getTotalpositivecases() {
+	public String getTotalpositivecases() {
 		return totalpositivecases;
 	}
-	public void setTotalpositivecases(Integer totalpositivecases) {
+	public void setTotalpositivecases(String totalpositivecases) {
 		this.totalpositivecases = totalpositivecases;
 	}
-	public Integer getTotalsamplestested() {
+	public String getTotalsamplestested() {
 		return totalsamplestested;
 	}
-	public void setTotalsamplestested(Integer totalsamplestested) {
+	public void setTotalsamplestested(String totalsamplestested) {
 		this.totalsamplestested = totalsamplestested;
 	}
 	public String getUpdatetimestamp() {
