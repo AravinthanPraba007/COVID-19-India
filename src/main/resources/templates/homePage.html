@@ -221,10 +221,10 @@ function showDistance(position) {
 						<tbody>
 							<tr th:each="state : ${stateWiseReport}">
 								<td  th:text="${state.state}"></td>
-								<td class="text-right" th:text="${state.confirmed}"></td>
+								<td class="text-right"><span th:unless="${state.deltaconfirmed == 0}"><span class="badge badge-danger" th:text="|+${state.deltaconfirmed}|"></span></span><span th:text="| ${state.confirmed}|"></span></td>
 								<td class="text-right" th:text="${state.active}"></td>
-								<td class="text-right" th:text="${state.recovered}"></td>
-								<td class="text-right" th:text="${state.deaths}"></td>
+								<td class="text-right"><span th:unless="${state.deltarecovered == 0}"><span class="badge badge-success" th:text="|+${state.deltarecovered}|"></span></span><span th:text="| ${state.recovered}"|></span></td>
+								<td class="text-right"><span th:unless="${state.deltadeaths == 0}"><span class="badge badge-secondary" th:text="|+${state.deltadeaths}|"></span></span><span th:text="| ${state.deaths}|"></span></td>
 							</tr>
 						</tbody>
 					</table>
