@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StateWiseData {
-
 	String active;
 	String confirmed;
 	String deaths;
@@ -22,7 +21,7 @@ public class StateWiseData {
 		return active;
 	}
 	public void setActive(String active) {
-		this.active = active;
+		this.active = active ;
 	}
 	public String getConfirmed() {
 		return confirmed;
